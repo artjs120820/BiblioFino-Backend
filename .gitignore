@@ -1,8 +1,6 @@
 # Archivos y carpetas de Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+
 
 # Entornos virtuales
 venv/
