@@ -11,7 +11,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import glob
 
+# Usar glob para encontrar todas las carpetas de aplicaciones dentro de bibliofinoBackend
+app_dirs = glob.glob(os.path.join(os.path.dirname(__file__), 'bibliofinoBackend', '*'))
+
+# Filtrar las aplicaciones que son directorios (y no archivos)
+apps = [os.path.basename(app_dir) for app_dir in app_dirs if os.path.isdir(app_dir)]
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,7 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bibliofinoBackend.configs',  # Asegúrate de que esta línea esté presente
+
 ]
+# Añadir las aplicaciones encontradas en bibliofinoBackend automáticamente
+INSTALLED_APPS += [f'bibliofinoBackend.{app}' for app in apps]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,11 +86,14 @@ WSGI_APPLICATION = 'bibliofinoBackend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dbbibliofino', #CAMBIAR
+        'USER': 'arturo', #CAMBIAR
+        'PASSWORD': 'kekito120820', #CAMBIAR
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
