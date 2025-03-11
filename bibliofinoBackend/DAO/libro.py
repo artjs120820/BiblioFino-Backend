@@ -28,3 +28,8 @@ class LibroDAO:
     @staticmethod
     def remove(id):
         return libro_repository.remove(id)
+
+    @staticmethod
+    def find_by_titulo(titulo):
+        """Busca libros que contengan el título en cualquier parte del nombre."""
+        return libro_repository.find_all(titulo__icontains=titulo)  #

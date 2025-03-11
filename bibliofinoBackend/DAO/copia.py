@@ -31,3 +31,13 @@ class CopiaDAO:
     @staticmethod
     def remove(id):
         return copia_repository.remove(id)
+    @staticmethod
+    def find_by_libro_id(libro_id):
+        """
+        Encuentra todas las copias asociadas a un libro específico.
+        """
+        return Copia.objects.filter(libro_id=libro_id)
+
+    @staticmethod
+    def update(data):
+        return copia_repository.update(data.get("id"), **data)

@@ -16,9 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from bibliofinoBackend.controllers.ciudadano import login
+from bibliofinoBackend.controllers import ciudadano, copia  # ✅ Importamos el módulo en lugar de cada función
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  
-    path('login/', login, name='login')  # ✅ Todas las rutas en un solo lugar
+    path('admin/', admin.site.urls)
+]
+
+# ✅ Agregar más rutas sin sobrecargar urlpatterns
+urlpatterns += [
+    path('login/', ciudadano.login, name='login'),
+    path('buscar_libros/', copia.buscar_libros, name='buscar_libros'),
 ]
