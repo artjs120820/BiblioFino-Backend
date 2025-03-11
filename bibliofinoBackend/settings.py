@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bibliofinoBackend.configs',  # Asegúrate de que esta línea esté presente
+    'corsheaders',
 
 ]
 # Añadir las aplicaciones encontradas en bibliofinoBackend automáticamente
@@ -53,12 +54,21 @@ INSTALLED_APPS += [f'bibliofinoBackend.{app}' for app in apps]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Agregar esta línea
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Permitir solicitudes desde tu frontend
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Permitir credenciales (cookies, tokens, etc.)
+
+
 
 ROOT_URLCONF = 'bibliofinoBackend.urls'
 
