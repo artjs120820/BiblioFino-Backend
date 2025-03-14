@@ -50,3 +50,40 @@ def buscar_libros(request):
         return JsonResponse({"success": False, "message": "Número de página inválido"}, status=400)
     except Exception as e:
         return JsonResponse({"success": False, "message": str(e)}, status=500)
+
+
+def buscarCopiaPorId(request, id):
+    if request.method != "GET":
+        return JsonResponse({"success": False, "message": "Método no permitido"}, status=405)
+
+    try:
+        if not id:
+            return JsonResponse({"success": False, "message": "El ID de la copia es obligatorio"}, status=400)
+
+        copia = CopiaDAO.find_one(id)
+        if not copia:
+            return JsonResponse({"success": False, "message": "No se encontró la copia"}, status=404)
+
+        return JsonResponse({
+            "success": True,
+            "copia": {
+                "id": copia.id,
+                "imagen": copia.imagen,
+                "isbn": copia.isbn,
+                "idioma": copia.idioma,
+                "editorial": copia.editorial,
+                "anio": copia.anio,
+                "paginas": copia.paginas,
+                "codigo_unico": copia.codigo_unico,
+                "disponible": copia.disponible,  # Si tiene estado, lo añadimos
+                "libro": {
+                    "id": copia.libro.id,
+                    "titulo": copia.libro.titulo,
+                    "autor": copia.libro.autor,
+                    "genero": copia.libro.genero
+                }
+            }
+        })
+
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)}, status=500)

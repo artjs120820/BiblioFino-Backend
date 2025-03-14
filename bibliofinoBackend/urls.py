@@ -29,4 +29,5 @@ urlpatterns += [
     path('logout/', token.logout, name='logout'),
     path('obtener_reservas_usuario/<int:ciudadano_id>/', reserva.obtener_reservas_usuario, name='obtener_reservas_usuario'),
     path('obtener_usuario_y_ciudadano/<int:ciudadano_id>/', usuario.obtener_usuario_y_ciudadano, name='obtener_usuario_y_ciudadano'),
+    path('buscarCopiaPorId/<int:id>/', copia.buscarCopiaPorId, name='buscarCopiaPorId'),
 ]
