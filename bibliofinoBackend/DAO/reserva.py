@@ -27,3 +27,7 @@ class ReservaDAO:
     @staticmethod
     def remove(id):
         return reserva_repository.remove(id)
+    
+    @staticmethod
+    def find_by_ciudadano_id(ciudadano_id):
+        return Reserva.objects.filter(usuario_id=ciudadano_id)

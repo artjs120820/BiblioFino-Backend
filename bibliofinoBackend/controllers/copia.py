@@ -1,15 +1,9 @@
 import json
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 from bibliofinoBackend.DAO.libro import LibroDAO
 from bibliofinoBackend.DAO.copia import CopiaDAO
 
-@csrf_exempt
 def buscar_libros(request):
-    """
-    Busca libros por título y devuelve copias relacionadas paginadas de 3 en 3.
-    Ejemplo de uso: /buscar_libros/?titulo=romeo%20y%20julieta&page=1
-    """
     if request.method != "GET":
         return JsonResponse({"success": False, "message": "Método no permitido"}, status=405)
 

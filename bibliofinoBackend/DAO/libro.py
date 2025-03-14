@@ -32,4 +32,4 @@ class LibroDAO:
     @staticmethod
     def find_by_titulo(titulo):
         """Busca libros que contengan el título en cualquier parte del nombre."""
-        return libro_repository.find_all(titulo__icontains=titulo)  #
+        return libro_repository.find_all(titulo__icontains=titulo) 

@@ -28,3 +28,7 @@ class TokenDAO:
     @staticmethod
     def remove(id):
         return token_repository.remove(id)
+    @staticmethod
+    def find_by_token(token):
+        """Busca un token en la BD."""
+        return Token.objects.filter(token=token).first()

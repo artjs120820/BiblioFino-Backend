@@ -28,3 +28,7 @@ class UsuarioDAO:
     @staticmethod
     def remove(id):
         return usuario_repository.remove(id)
+    
+    @staticmethod
+    def find_one_by_id_ciudadano(ciudadano_id):
+        return Usuario.objects.filter(ciudadano_id=ciudadano_id).first()

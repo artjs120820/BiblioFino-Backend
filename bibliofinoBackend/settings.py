@@ -35,6 +35,30 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+
+# Configurar sesiones en base de datos
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+# Habilitar HttpOnly para seguridad
+SESSION_COOKIE_HTTPONLY = True  
+
+SESSION_COOKIE_SECURE = False  
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  
+
+SESSION_COOKIE_SAMESITE = "None"
+
+CSRF_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SECURE = False  
+
+
+AUTH_COOKIE_NAME = "auth_token"  
+AUTH_COOKIE_HTTPONLY = True  
+AUTH_COOKIE_SECURE = False 
+AUTH_COOKIE_SAMESITE = "Lax"  
+AUTH_COOKIE_MAX_AGE = 86400  
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,29 +68,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bibliofinoBackend.configs',  # Asegúrate de que esta línea esté presente
+    'bibliofinoBackend.configs', 
     'corsheaders',
 
 ]
-# Añadir las aplicaciones encontradas en bibliofinoBackend automáticamente
+
 INSTALLED_APPS += [f'bibliofinoBackend.{app}' for app in apps]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  # Agregar esta línea
+    'corsheaders.middleware.CorsMiddleware', 
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CORS_ALLOW_CREDENTIALS = True  
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # Permitir solicitudes desde tu frontend
+    "http://localhost:3000", 
 ]
 
-CORS_ALLOW_CREDENTIALS = True  # Permitir credenciales (cookies, tokens, etc.)
+
 
 
 

@@ -21,8 +21,8 @@ class AdministradorDAO:
         return administrador_repository.find_one(id)
 
     @staticmethod
-    def find_one_by_user_id(user_id):
-        return Administrador.objects.filter(user_id=user_id).first()
+    def find_one_by_id_ciudadano(ciudadano_id):
+        return Administrador.objects.filter(ciudadano_id=ciudadano_id).first()
 
     @staticmethod
     def update(data):

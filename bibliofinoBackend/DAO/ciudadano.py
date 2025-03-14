@@ -33,7 +33,7 @@ class CiudadanoDAO:
     @staticmethod
     def remove(id):
         return ciudadano_repository.remove(id)
-     # Cambié este método para que busque por 'correo' en lugar de 'email'
+    
     @staticmethod
     def find_one_by_correo(correo):
         return Ciudadano.objects.filter(correo=correo).first()
