@@ -16,12 +16,13 @@ def generate_jwt(payload):
     return jwt.encode(payload, settings.SECRET_KEY, algorithm="HS256")
 
 
-def generate_unique_token(id, correo, tipo_usuario):   
+def generate_unique_token(id, correo, tipo_usuario, nombre):   
     while True:
         payload = {
             "id": id,
             "correo": correo,
             "tipo_usuario": tipo_usuario,
+            "nombre": nombre,
             "exp": datetime.datetime.utcnow() + datetime.timedelta(days=14)
         }
         token = generate_jwt(payload) 
@@ -49,7 +50,7 @@ def login(request):
 
         administrador = AdministradorDAO.find_one_by_id_ciudadano(ciudadano.id)
         tipo_usuario = "administrador" if administrador else "usuario"
-        token = generate_unique_token(ciudadano.id, ciudadano.correo, tipo_usuario)
+        token = generate_unique_token(ciudadano.id, ciudadano.correo, tipo_usuario, ciudadano.nombre)
 
         fecha_creacion = datetime.datetime.utcnow()
         fecha_expiracion = fecha_creacion + datetime.timedelta(days=14)
