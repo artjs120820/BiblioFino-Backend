@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.timezone import now
+from datetime import timedelta
 
 class Distrito(models.Model):
     nombre = models.CharField(max_length=255)
@@ -64,3 +66,29 @@ class Token(models.Model):
     fecha_expiracion = models.DateTimeField()
     class Meta:
         db_table = 'token' 
+
+
+
+class CodigoVerificacion(models.Model):
+    email = models.EmailField() 
+    codigo = models.CharField(max_length=6)  
+    creado_en = models.DateTimeField(auto_now_add=True)  
+    expira_en = models.DateTimeField(default=lambda: now() + timedelta(minutes=10)) 
+    estado = models.CharField(max_length=10, choices=[('activo', 'Activo'), ('vencido', 'Vencido')], default='activo')  
+
+    class Meta:
+        db_table = 'codigo_verificacion'
+
+    def marcar_vencido(self):
+        """Marca este código como vencido."""
+        self.estado = 'vencido'
+        self.save()
+
+    @staticmethod
+    def invalidar_codigos_anteriores(email):
+        """Vence cualquier código activo previo para un email."""
+        CodigoVerificacion.objects.filter(email=email, estado='activo').update(estado='vencido')
+
+    def es_valido(self):
+        """Verifica si el código sigue activo y no ha expirado."""
+        return self.estado == 'activo' and self.expira_en > now()

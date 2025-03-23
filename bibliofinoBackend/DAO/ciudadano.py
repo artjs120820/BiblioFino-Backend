@@ -37,3 +37,6 @@ class CiudadanoDAO:
     @staticmethod
     def find_one_by_correo(correo):
         return Ciudadano.objects.filter(correo=correo).first()
+    @staticmethod
+    def find_one_by_dni(dni):  # ✅ Nuevo método para buscar por DNI
+        return Ciudadano.objects.filter(dni=dni).first()

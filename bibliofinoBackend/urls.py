@@ -30,4 +30,8 @@ urlpatterns += [
     path('obtener_reservas_usuario/<int:ciudadano_id>/', reserva.obtener_reservas_usuario, name='obtener_reservas_usuario'),
     path('obtener_usuario_y_ciudadano/<int:ciudadano_id>/', usuario.obtener_usuario_y_ciudadano, name='obtener_usuario_y_ciudadano'),
     path('buscarCopiaPorId/<int:id>/', copia.buscarCopiaPorId, name='buscarCopiaPorId'),
+    path('correo_autenticacion/', usuario.correo_autenticacion, name='correo_autenticacion'),
+    path('validar_codigo/', usuario.validar_codigo, name='validar_codigo'),
+    path('verificar_dni/', ciudadano.verificar_dni, name='verificar_dni'),
+    path('crear_usuario/', usuario.crear_usuario, name='crear_usuario'),
 ]

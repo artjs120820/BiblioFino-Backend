@@ -67,3 +67,26 @@ def login(request):
 
     except Exception as e:
         return JsonResponse({"success": False, "message": f"Error en el servidor: {str(e)}"}, status=500)
+
+
+def verificar_dni(request):
+    if request.method != "POST":
+        return JsonResponse({"success": False, "message": "Método no permitido"}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        dni = data.get("dni", "").strip()
+
+        if not dni.isdigit() or len(dni) != 8:  # 📌 Verifica que sean 8 dígitos
+            return JsonResponse({"success": False, "message": "DNI inválido"}, status=400)
+
+        ciudadano = CiudadanoDAO.find_one_by_dni(dni)
+
+        if ciudadano:
+            return JsonResponse({"success": False, "message": "DNI ya registrado"}, status=409)
+
+        return JsonResponse({"success": True, "message": "DNI disponible"})
+
+    except Exception as e:
+        return JsonResponse({"success": False, "message": f"Error en el servidor: {str(e)}"}, status=500)
+

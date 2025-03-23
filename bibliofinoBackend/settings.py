@@ -20,7 +20,7 @@ app_dirs = glob.glob(os.path.join(os.path.dirname(__file__), 'bibliofinoBackend'
 # Filtrar las aplicaciones que son directorios (y no archivos)
 apps = [os.path.basename(app_dir) for app_dir in app_dirs if os.path.isdir(app_dir)]
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -100,7 +100,7 @@ ROOT_URLCONF = 'bibliofinoBackend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # Busca dentro de bibliofinoBackend/templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -112,6 +112,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'bibliofinoBackend.wsgi.application'
 
@@ -170,3 +171,15 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+# EMAILLLL
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "bibliofino.noreply@gmail.com"  # Reemplaza con tu correo
+EMAIL_HOST_PASSWORD = "elcb eaom lqby desa"  # O una contraseña de aplicación si tienes 2FA
