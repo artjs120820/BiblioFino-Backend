@@ -10,7 +10,7 @@ def obtener_reservas_usuario(request, ciudadano_id):
     reservas = ReservaDAO.find_by_ciudadano_id(ciudadano_id)
 
     if not reservas.exists():  
-        return JsonResponse({"success": False, "message": "No se encontraron reservas para este usuario"}, status=404)
+        return JsonResponse({"success": False, "message": "No se encontraron reservas para este usuario"})
 
     reservas_con_detalle = []
 
